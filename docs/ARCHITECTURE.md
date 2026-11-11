@@ -28,7 +28,7 @@ flowchart TD
 
 **Offline tolerance:** successful ticker text persist locally. Failed refreshes reuse cached text. Feed requests have connect/read timeouts and a 2 MiB response cap. These measures bound each response, not every possible runtime or memory failure. A partial multi-league update can still omit unavailable leagues.
 
-**No app artwork downloads:** installed package banners/icons supply artwork. Missing curated apps link to Amazon's Appstore. This launcher does not supply movies, subscriptions, VPN service, or streaming access.
+**No runtime app artwork downloads:** installed package TV banners supply artwork first. Bundled brand logos provide offline fallbacks for common services; other apps use installed launcher icons with their proportions preserved. Missing curated apps link to Amazon's Appstore. This launcher does not supply movies, subscriptions, VPN service, or streaming access.
 
 **Optional system integration:** Amazon Home is not replaced or removed. The accessibility service only receives Amazon launcher window-state events and declares `canRetrieveWindowContent=false`. It may stop working after firmware updates.
 

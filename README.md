@@ -28,7 +28,7 @@ Built as a personal Fire TV project and shared as a working, customizable starti
 | --- | --- |
 | Remote-first navigation | D-pad focus with a 150 ms lift, scale, and shadow transition |
 | Favorites + All Apps | Five favorites; discovers additional installed, non-system TV apps |
-| Native artwork | Uses installed TV banners, with launcher icons as a fallback |
+| Native artwork | Installed TV banners, offline brand logos, and proportional launcher icons |
 | SCOREWIRE | Scrolling MLB, NFL, college football, and college baseball scores |
 | Game day | Favorite-team live indicator and next-game countdown |
 | Network + VPN | Network status and an optional Private Internet Access widget control |
@@ -89,4 +89,4 @@ See the [architecture and design tradeoffs](docs/ARCHITECTURE.md), [privacy and 
 
 ## License and credits
 
-Code: [MIT](LICENSE). Original AI-generated wallpaper and project media: [asset notices](docs/ASSETS.md). Public sports data: MLB Stats API and ESPN scoreboard endpoints, subject to their providers' terms. App names and artwork belong to their respective owners; app artwork is loaded from installed packages, not bundled here. This project is independent of Amazon, the streaming services, leagues, and VPN providers.
+Code: [MIT](LICENSE). Original AI-generated wallpaper, project media, and third-party logo credits: [asset notices](docs/ASSETS.md). Public sports data: MLB Stats API and ESPN scoreboard endpoints, subject to their providers' terms. App names and artwork belong to their respective owners; artwork comes from installed packages with bundled logo fallbacks for common services. This project is independent of Amazon, the streaming services, leagues, and VPN providers.

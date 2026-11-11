@@ -23,7 +23,7 @@ LOOK: ground #0B1418; text #FFFFFF; amber #FFB530 from the native LED ticker; pa
 ## Storyboard (22 seconds)
 
 - 0–3 s: Hook. “Your TV. A little quieter.” Still typography, quick soft arrival over the original wallpaper. Music fades in.
-- 3–14 s: Product. Full-screen source-based recreation. Header ticker, clock/date, five Favorites. Selection moves between app cards at 4.64 and 6.28 s; Down opens All Apps at 8.22 s. Returning to Favorites at 11.47 s reveals a sample favorite-team LIVE strip. Ticker scrolls continuously. App names are plain text, not copied logos. Sample scores are marked.
+- 3–14 s: Product. Full-screen source-based recreation. Header ticker, clock/date, five Favorites. Selection moves between app cards at 4.64 and 6.28 s; Down opens All Apps at 8.22 s. Returning to Favorites at 11.47 s reveals a sample favorite-team LIVE strip. Ticker scrolls continuously. Tiles use real brand SVGs with proportional sizing; provenance is in docs/ASSETS.md. Sample scores are marked.
 - 14–18 s: Build. “Native Java. No backend.” Actual source filenames and command-line toolchain. Settle and hold all copy for reading.
 - 18–22 s: Outro. “Quiet Home” and “Make your home screen yours.” Repository address and MIT license. End title lands on the 18.01 s music cue and holds.
 

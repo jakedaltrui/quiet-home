@@ -45,7 +45,7 @@ with tempfile.TemporaryDirectory(prefix='quiet-home-video-') as directory:
          '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k',
          '-t', '22', '-movflags', '+faststart', silent])
     run(['ffmpeg', '-y', '-ss', '6', '-i', silent, '-frames:v', '1', '-q:v', '2', MEDIA / 'brag.jpg'])
-    run(['ffmpeg', '-y', '-ss', '20', '-i', silent, '-frames:v', '1', '-q:v', '2', MEDIA / 'hero.jpg'])
+    run(['ffmpeg', '-y', '-ss', '4', '-i', silent, '-frames:v', '1', '-q:v', '2', MEDIA / 'hero.jpg'])
     run(['ffmpeg', '-y', '-i', silent, '-i', MEDIA / 'brag.jpg', '-filter_complex',
          "[0:v][1:v]overlay=0:0:enable='eq(n,0)'[v]", '-map', '[v]', '-map', '0:a',
          '-c:v', 'libx264', '-crf', '18', '-preset', 'slow', '-pix_fmt', 'yuv420p',

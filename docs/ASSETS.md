@@ -4,7 +4,15 @@
 
 `res/drawable-nodpi/forest_background.jpg` is original AI-generated artwork made for Quiet Home. It replaces the privately supplied photograph. Project promotional images and UI recreation markup are included under the MIT license to the extent copyright applies. No exclusivity or trademark rights are claimed.
 
-The promotional video shows a source-based UI recreation with sample scores. Streaming-service names identify apps the launcher can open; no third-party logos or app banners are distributed in the source tree. Installed-app artwork is read locally from installed packages.
+The promotional video shows a source-based UI recreation with sample scores. Installed TV banners are read locally from installed packages. Bundled logos also identify apps the launcher can open; trademark rights remain with the respective owners and no endorsement is implied.
+
+## App logos
+
+SVG originals are in `brag-output/composition/assets/logos/`; proportional PNG conversions are in `res/drawable-nodpi/logo_*.png`. The Android app uses installed TV banners first, then these offline logo fallbacks, then installed launcher icons. The video uses the same SVG artwork.
+
+Netflix, Hulu, Disney+, Prime Video, YouTube, Max, Apple TV+, Peacock, and Paramount+ SVGs were retrieved from [Homarr Dashboard Icons](https://github.com/homarr-labs/dashboard-icons/tree/main/svg) on November 11, 2026. Copyright (c) 2024 Bjorn Lammers, Meier Lukas, Thomas Camlong and Homarr Labs; repository license: [Apache 2.0](licenses/dashboard-icons.txt). These are third-party brand marks, outside Quiet Home's MIT code license. PNGs are resized conversions; Max and Apple TV+ PNGs are recolored white for contrast. The video applies the same white treatment with CSS. Original SVGs are retained unchanged.
+
+Tubi and Amazon Music SVGs come from [Simple Icons 14.0.0](https://github.com/simple-icons/simple-icons/tree/14.0.0/icons), distributed under [CC0](licenses/simple-icons.md). PNGs are resized conversions. CC0 does not grant trademark rights.
 
 ## Demo audio
 

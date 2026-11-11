@@ -211,6 +211,7 @@ public final class MainActivity extends Activity {
         final int color;
         boolean installed;
         boolean hasTvBanner;
+        boolean hasBundledLogo;
         Bitmap artwork;
 
         AppItem(String name, String packageName, int color) {
@@ -413,10 +414,42 @@ public final class MainActivity extends Activity {
                 item.hasTvBanner = false;
                 item.artwork = null;
             }
+            // Installed TV banners remain authoritative. Use real, offline logo
+            // artwork before a square icon or a text placeholder.
+            if (!item.hasTvBanner) {
+                int logo = logoResource(item.packageName);
+                if (logo != 0) {
+                    item.artwork = BitmapFactory.decodeResource(getResources(), logo);
+                    item.hasBundledLogo = item.artwork != null;
+                }
+            }
+        }
+
+        private int logoResource(String packageName) {
+            if ("com.netflix.ninja".equals(packageName)) return R.drawable.logo_netflix;
+            if ("com.hulu.plus".equals(packageName)) return R.drawable.logo_hulu;
+            if ("com.disney.disneyplus".equals(packageName)) return R.drawable.logo_disney_plus;
+            if ("com.amazon.firebat".equals(packageName)) return R.drawable.logo_prime_video;
+            if ("com.amazon.firetv.youtube".equals(packageName)) return R.drawable.logo_youtube;
+            if ("com.hbo.hbonow".equals(packageName)) return R.drawable.logo_max;
+            if ("com.apple.atve.amazon.appletv".equals(packageName)) return R.drawable.logo_apple_tv_plus;
+            if ("com.peacock.peacockfiretv".equals(packageName)) return R.drawable.logo_peacock;
+            if ("com.cbs.ott".equals(packageName)) return R.drawable.logo_paramount_plus;
+            if ("com.tubitv.ott".equals(packageName)) return R.drawable.logo_tubi;
+            if ("com.amazon.bueller.music".equals(packageName)) return R.drawable.logo_amazonmusic;
+            return 0;
         }
 
         private Bitmap renderArtwork(Drawable drawable, int width, int height) {
             if (drawable == null) return null;
+            int intrinsicWidth = drawable.getIntrinsicWidth();
+            int intrinsicHeight = drawable.getIntrinsicHeight();
+            if (intrinsicWidth > 0 && intrinsicHeight > 0) {
+                float scale = Math.min(width / (float) intrinsicWidth,
+                        height / (float) intrinsicHeight);
+                width = Math.max(1, Math.round(intrinsicWidth * scale));
+                height = Math.max(1, Math.round(intrinsicHeight * scale));
+            }
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             Canvas iconCanvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, width, height);
@@ -889,6 +922,15 @@ public final class MainActivity extends Activity {
                 RectF card = new RectF(left, cardTop, right, bottom);
                 drawAppCard(canvas, i, card, focus, h);
             }
+            if (interactive && !vpnFocused && utilityFocused == UTILITY_NONE
+                    && selected < COLUMNS) {
+                sansText(h * .021f, Color.WHITE, false);
+                paint.setTextAlign(Paint.Align.CENTER);
+                float center = startX + selected * (cardWidth + horizontalGap) + cardWidth / 2f;
+                canvas.drawText(apps.get(selected).name, center,
+                        top + cardHeight + h * .068f, paint);
+                paint.setTextAlign(Paint.Align.LEFT);
+            }
         }
 
         private void drawAppCard(Canvas canvas, int index, RectF card, float focus, float h) {
@@ -911,6 +953,8 @@ public final class MainActivity extends Activity {
             canvas.clipPath(clip);
             if (app.artwork != null && app.hasTvBanner) {
                 drawCenterCrop(canvas, app.artwork, card);
+            } else if (app.artwork != null && app.hasBundledLogo) {
+                drawArtworkFit(canvas, app.artwork, card, .72f, .66f);
             } else if (app.artwork != null) {
                 drawIconFit(canvas, app.artwork, card);
             } else {
@@ -958,11 +1002,19 @@ public final class MainActivity extends Activity {
         }
 
         private void drawIconFit(Canvas canvas, Bitmap bitmap, RectF card) {
-            float size = Math.min(card.height() * .82f, card.width() * .72f);
-            RectF destination = new RectF(card.centerX() - size / 2f,
-                    card.centerY() - size / 2f,
-                    card.centerX() + size / 2f,
-                    card.centerY() + size / 2f);
+            drawArtworkFit(canvas, bitmap, card, .72f, .82f);
+        }
+
+        private void drawArtworkFit(Canvas canvas, Bitmap bitmap, RectF card,
+                                    float widthFraction, float heightFraction) {
+            float scale = Math.min(card.width() * widthFraction / bitmap.getWidth(),
+                    card.height() * heightFraction / bitmap.getHeight());
+            float width = bitmap.getWidth() * scale;
+            float height = bitmap.getHeight() * scale;
+            RectF destination = new RectF(card.centerX() - width / 2f,
+                    card.centerY() - height / 2f,
+                    card.centerX() + width / 2f,
+                    card.centerY() + height / 2f);
             canvas.drawBitmap(bitmap, null, destination, paint);
         }
 
@@ -995,11 +1047,16 @@ public final class MainActivity extends Activity {
 
         private int tileBackground(AppItem app) {
             if ("YouTube".equals(app.name)) return Color.rgb(245, 245, 245);
+            if (app.hasBundledLogo && ("Prime Video".equals(app.name)
+                    || "Peacock".equals(app.name) || "Paramount+".equals(app.name)
+                    || "Tubi".equals(app.name) || "Amazon Music".equals(app.name))) {
+                return Color.rgb(245, 247, 250);
+            }
             if ("Prime Video".equals(app.name)) return Color.rgb(22, 122, 244);
             if ("Disney+".equals(app.name)) return Color.rgb(10, 43, 79);
             if ("Paramount+".equals(app.name)) return Color.rgb(12, 45, 105);
             if ("Tubi".equals(app.name)) return Color.rgb(29, 10, 50);
-            if ("Max".equals(app.name)) return Color.rgb(10, 6, 31);
+            if ("Max".equals(app.name)) return Color.rgb(7, 24, 174);
             if ("Hulu".equals(app.name) || "Netflix".equals(app.name)
                     || "Apple TV+".equals(app.name) || "Peacock".equals(app.name)
                     || "ESPN".equals(app.name) || "Amazon Music".equals(app.name)) {
