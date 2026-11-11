@@ -1,0 +1,25 @@
+name: Build and repository checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Use the runner's JDK 17
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV"
+      - name: Install pinned Android build tools
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.1"
+      - name: Check public repository hygiene
+        run: python3 scripts/check_public.py
+      - name: Build and verify development APK
+        run: ./build.sh

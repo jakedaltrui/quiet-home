@@ -1,0 +1,17 @@
+/build/
+/dist/
+/.local/
+*.keystore
+*.jks
+*.pem
+*.key
+*.apk
+*.idsig
+.env
+.env.*
+local.properties
+.DS_Store
+node_modules/
+.hyperframes/
+__pycache__/
+*.pyc

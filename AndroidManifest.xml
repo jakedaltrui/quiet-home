@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jakedaltrui.quiethome">
+    <uses-feature android:name="android.software.leanback" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+        </intent>
+        <package android:name="com.netflix.ninja" />
+        <package android:name="com.hulu.plus" />
+        <package android:name="com.privateinternetaccess.android" />
+        <package android:name="com.amazon.firetv.youtube" />
+        <package android:name="com.amazon.bueller.music" />
+        <package android:name="com.disney.disneyplus" />
+        <package android:name="com.amazon.firebat" />
+        <package android:name="com.hbo.hbonow" />
+        <package android:name="com.apple.atve.amazon.appletv" />
+        <package android:name="com.peacock.peacockfiretv" />
+        <package android:name="com.cbs.ott" />
+        <package android:name="com.tubitv.ott" />
+        <package android:name="tv.pluto.android" />
+        <package android:name="com.espn.gtv" />
+        <package android:name="com.amazon.tv.settings.v2" />
+        <package android:name="com.amazon.venezia" />
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:usesCleartextTraffic="false"
+        android:label="Quiet Home"
+        android:theme="@style/AppTheme">
+        <service
+            android:name=".HomeRedirectService"
+            android:exported="true"
+            android:label="Quiet Home button redirect"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/home_redirect_service" />
+        </service>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
