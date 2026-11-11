@@ -1,0 +1,1 @@
+I built a calmer home screen for my Fire TV. Native Java, a live sports ticker, and no ad feed. Quiet Home is open source: https://github.com/jakedaltrui/quiet-home

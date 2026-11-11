@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quiet Home</string>
+    <string name="home_redirect_description">Open Quiet Home when the Fire TV Home button is pressed.</string>
+</resources>
