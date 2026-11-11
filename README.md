@@ -44,7 +44,7 @@ cd quiet-home
 # Use your own SDK and JDK locations.
 export ANDROID_SDK_ROOT=/path/to/android-sdk
 export JAVA_HOME=/path/to/jdk-17
-export PATH="$JAVA_HOME/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH"
+export PATH="$JAVA_HOME/bin:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH"
 
 sdkmanager "platforms;android-35" "build-tools;35.0.1" "platform-tools"
 ./build.sh
